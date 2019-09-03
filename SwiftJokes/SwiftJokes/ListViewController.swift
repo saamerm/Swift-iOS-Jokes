@@ -7,15 +7,36 @@
 //
 import UIKit
 
-class ListViewController: UIViewController {
-
-    override func viewDidLoad() {
+class ListViewController: UIViewController, UICollectionViewDataSource {
+    let leftAndRightPaddings: CGFloat = 80.0
+    let numberOfItemsPerRow: CGFloat = 7.0
+    let screenSize: CGRect = UIScreen.main.bounds
+    private let cellReuseIdentifier = "CategoryCollectionViewCell"
+    var items = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"]
+    
+    // MARK: Base function override
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
-        label.center = CGPoint(x: 160, y: 285)
-        label.textAlignment = .center
-        label.text = "I'm a test label"
-        self.view.addSubview(label)
+        let flowLayout = UICollectionViewFlowLayout()
+        let collectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: flowLayout)
+        collectionView.register(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
+        collectionView.dataSource = self
+        collectionView.backgroundColor = UIColor.cyan
+        self.view.addSubview(collectionView)
+    }
+    
+    // MARK: 1st Function required in order to implement the UICollectionViewDataSource protocol
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
+    {
+        return self.items.count
+    }
+    
+    // MARK: 2nd Function required in order to implement the UICollectionViewDataSource protocol
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
+    {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! CategoryCollectionViewCell
+        cell.backgroundColor = UIColor.green
+        return cell
     }
 }
