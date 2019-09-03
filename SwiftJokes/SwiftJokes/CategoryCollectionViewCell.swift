@@ -15,6 +15,15 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        let textLabel = UILabel(frame: .zero)
+        textLabel.text = "Hi"
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.contentView.addSubview(textLabel)
+        NSLayoutConstraint.activate([
+            self.contentView.centerXAnchor.constraint(equalTo: textLabel.centerXAnchor),
+            self.contentView.centerYAnchor.constraint(equalTo: textLabel.centerYAnchor)
+        ])
+        self.textLabel = textLabel
         self.reset()
     }
 
@@ -28,5 +37,6 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     }
     
     func reset() {
+        self.textLabel.textAlignment = .center
     }
 }

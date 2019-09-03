@@ -7,7 +7,7 @@
 //
 import UIKit
 
-class ListViewController: UIViewController, UICollectionViewDataSource {
+class ListViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
     let leftAndRightPaddings: CGFloat = 80.0
     let numberOfItemsPerRow: CGFloat = 7.0
     let screenSize: CGRect = UIScreen.main.bounds
@@ -21,6 +21,7 @@ class ListViewController: UIViewController, UICollectionViewDataSource {
         let flowLayout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: flowLayout)
         collectionView.register(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
+        collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.backgroundColor = UIColor.cyan
         self.view.addSubview(collectionView)
@@ -38,5 +39,18 @@ class ListViewController: UIViewController, UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! CategoryCollectionViewCell
         cell.backgroundColor = UIColor.green
         return cell
+    }
+    
+    // MARK: Change padding arround each cell and the top
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets
+    {
+        return UIEdgeInsets(top: 20, left: 8, bottom: 5, right: 8)
+    }
+    
+    // MARK: Change size of individual cells
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
+    {
+        let width = (screenSize.width-leftAndRightPaddings)/numberOfItemsPerRow
+        return CGSize(width: width, height: width)
     }
 }
