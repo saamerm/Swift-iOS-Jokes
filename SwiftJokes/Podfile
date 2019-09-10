@@ -1,0 +1,7 @@
+target 'SwiftJokes' do
+# Comment the next line if you're not using dynamic frameworks
+  use_frameworks!
+# Pods for SwiftJokes
+   pod 'Alamofire', '~> 4.9'
+   pod 'SwiftyJSON', '~> 5.0'
+end
